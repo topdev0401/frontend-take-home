@@ -1,7 +1,6 @@
 import axios from "axios";
 import { formatApiParams } from "../utils/helpers";
-
-const base = "https://api.npms.io/v2/search";
+import { API_BASE_URL } from "../utils/constants";
 
 export const getPackages = async ({ keyword, simulateError }: { keyword?: string, simulateError: boolean }) => {
   const params = formatApiParams({ q: keyword })
@@ -13,6 +12,6 @@ export const getPackages = async ({ keyword, simulateError }: { keyword?: string
 
   // otherwise, make the actual API request
   return await axios
-    .get(`${base}/suggestions?${params}`)
+    .get(`${API_BASE_URL}/suggestions?${params}`)
     .then((response) => response.data);
 }

@@ -3,7 +3,7 @@ import { Theme } from '@mui/material'
 
 export default makeStyles((theme: Theme) => ({
     container: {
-        padding: '20px',
+        margin: '20px 0px'
     },
     searchButton: {
         height: '56px',

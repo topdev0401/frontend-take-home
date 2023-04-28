@@ -3,7 +3,6 @@ import { Theme } from '@mui/material'
 
 export default makeStyles((theme: Theme) => ({
     link: {
-        color: '#000',
         fontSize: '18px'
     },
     description: {
