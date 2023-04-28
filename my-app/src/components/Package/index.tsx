@@ -12,9 +12,7 @@ import useStyles from "./styles"; // import the styles
 const Package: FC<PackageProps> = ({ packageData }) => {
   const styles = useStyles(); // initialize the styles
 
-  /**
-   * destructuring the packageData prop to get the necessary properties
-   */
+  // destructuring the packageData prop to get the necessary properties
   const {
     package: { links, name, description, publisher, version },
   } = packageData;

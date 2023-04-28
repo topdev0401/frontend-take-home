@@ -1,4 +1,4 @@
-export interface PackageLink {
+export interface PackageLinks {
   npm: string;
   homepage: string;
   repository: string;
@@ -18,9 +18,10 @@ export interface PackageDetails {
   name: string;
   scope: string;
   version: string;
-  description: string[];
+  description: string;
+  keywords: string[];
   date: string;
-  links: PackageLink;
+  links: PackageLinks;
   author: Author;
   publisher: Contributer;
   maintainers: Contributer[];

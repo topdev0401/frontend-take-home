@@ -15,7 +15,7 @@ const PackageList: FC<PackageListProps> = ({ packages }) => {
     <Grid container spacing={2}>
       {packages.map((pkg: IPackage, index: number) => (
         // Loop through the list of packages and render a Package component for each one
-        <Package key={index} packageData={pkg} />
+        <Package aria-label="package" key={index} packageData={pkg} />
       ))}
     </Grid>
   );
