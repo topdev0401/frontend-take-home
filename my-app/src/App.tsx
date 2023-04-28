@@ -7,44 +7,64 @@ import { LinearProgress, Typography } from "@mui/material";
 
 import "./App.css";
 
+/**
+ * Interface of state
+ */
+interface IState {
+  packages: IPackage[];
+  loading: boolean;
+  error: string;
+}
+
 function App() {
-  const [packages, setPackages] = useState<IPackage[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [state, setState] = useState<IState>({
+    packages: [],
+    loading: false,
+    error: "",
+  });
 
+  /**
+   * Query packages from API
+   * @param keyword query word
+   * @returns 
+   */
   const fetchPackages = async (keyword: string): Promise<void> => {
-    setLoading(true);
+    setState((prevState) => ({ ...prevState, loading: true }));
 
+    /**
+     * avoid empty keyword
+     */
     if (!keyword) {
-      setPackages([]);
-      setLoading(false);
+      setState((prevState) => ({ ...prevState, packages: [], loading: false }));
       return;
     }
 
+    /**
+     * error handling
+     */
     try {
       const apiResponse = await getPackages({ keyword });
-      setError("");
-      setPackages(apiResponse);
+      setState((prevState) => ({ ...prevState, packages: apiResponse, error: "" }));
     } catch (error: any) {
-      setError(`Error: ${error.message}`);
+      setState((prevState) => ({ ...prevState, error: `Error: ${error.message}` }));
     }
 
-    setLoading(false);
+    setState((prevState) => ({ ...prevState, loading: false }));
   };
 
   return (
     <div className="App">
       {/* Loading spinner */}
-      {loading && <LinearProgress />}
+      {state.loading && <LinearProgress />}
 
       {/* Search bar */}
       <SearchBar fetch={fetchPackages} />
-      
+
       {/* Handle error */}
-      {error && <Typography>{error}</Typography>}
+      {state.error && <Typography>{state.error}</Typography>}
 
       {/* Show search results when we don't have an error */}
-      {!error && <PackageList packages={packages} />}
+      {!state.error && <PackageList packages={state.packages} />}
     </div>
   );
 }
