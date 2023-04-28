@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PackageList from "./components/PackageList";
 import SearchBar from "./components/SearchBar";
 import { IPackage } from "./utils/interfaces";
@@ -28,7 +28,7 @@ function App() {
    * @param keyword query word
    * @returns 
    */
-  const fetchPackages = async (keyword: string): Promise<void> => {
+  const fetchPackages = async (keyword: string, simulateError: boolean = false): Promise<void> => {
     setState((prevState) => ({ ...prevState, loading: true }));
 
     /**
@@ -43,7 +43,7 @@ function App() {
      * error handling
      */
     try {
-      const apiResponse = await getPackages({ keyword });
+      const apiResponse = await getPackages({ keyword, simulateError });
       setState((prevState) => ({ ...prevState, packages: apiResponse, error: "" }));
     } catch (error: any) {
       setState((prevState) => ({ ...prevState, error: `Error: ${error.message}` }));

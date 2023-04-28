@@ -1,3 +1,3 @@
 export interface SearchBarProps {
-  fetch: (keyword: string) => void;
+  fetch: (keyword: string, simulateError?: boolean) => void;
 }

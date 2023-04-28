@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { SearchBarProps } from "./types";
-import { Grid, TextField, Button } from "@mui/material";
+import { Grid, TextField, Button, FormControlLabel, Checkbox } from "@mui/material";
 
 import useStyles from "./styles";
 
@@ -15,13 +15,21 @@ const SearchBar: FC<SearchBarProps> = ({ fetch }) => {
   /**
    * controlled state of search bar input box
    */
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState<string>("");
+  const [simulateError, setSimulateError] = useState<boolean>(false)
   
   /**
    * trigger fetch function when click the button
    */
   const handleSearch = () => {
-    fetch(keyword)
+    fetch(keyword, simulateError)
+  }
+
+  /**
+   * handle checkbox click event
+   */
+  const handleSimulateChecked = () => {
+    setSimulateError(!simulateError)
   }
 
   return (
@@ -46,6 +54,12 @@ const SearchBar: FC<SearchBarProps> = ({ fetch }) => {
         >
           Search
         </Button>
+      </Grid>
+      <Grid item marginLeft={2}>
+        <FormControlLabel
+            label='Simulate Error'
+            control={<Checkbox checked={simulateError} onChange={handleSimulateChecked} />}
+        />
       </Grid>
     </Grid>
   );
